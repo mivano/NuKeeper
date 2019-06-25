@@ -106,7 +106,7 @@ namespace NuKeeper.Inspection.Tests.NuGetApi
         {
             var version = new NuGetVersion(major, minor, patch, releaseLabel);
             var metadata = new PackageIdentity("TestPackage", version);
-            return new PackageSearchMetadata(metadata, new PackageSource("http://none"), DateTimeOffset.Now, null);
+            return new PackageSearchMetadata(metadata, new PackageSource("http://none"), DateTimeOffset.Now, new Uri("https://www.url.net"), null);
         }
     }
 }

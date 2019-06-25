@@ -75,7 +75,7 @@ namespace NuKeeper.Inspection.NuGetApi
                 .SelectMany(set => set.Packages)
                 .Distinct();
 
-            return new PackageSearchMetadata(metadata.Identity, source, metadata.Published, deps);
+            return new PackageSearchMetadata(metadata.Identity, source, metadata.Published, metadata.ProjectUrl, deps);
         }
     }
 }

@@ -172,7 +172,7 @@ namespace NuKeeper.Inspection.Tests.NuGetApi
         {
             var responseMetaData = new PackageSearchMetadata(
                 new PackageIdentity(packageName, new NuGetVersion(2, 3, 4)), new PackageSource("http://none"),
-                DateTimeOffset.Now, null);
+                DateTimeOffset.Now, new Uri("https://www.url.net"), null);
 
             lookup.FindVersionUpdate(Arg.Is<PackageIdentity>(pm => pm.Id == packageName),
                     Arg.Any<NuGetSources>(), Arg.Any<VersionChange>(), Arg.Any<UsePrerelease>())

@@ -13,7 +13,7 @@ namespace NuKeeper.AzureDevOps
     public class AzureDevOpsCommitWorder : ICommitWorder
     {
         private const string CommitEmoji = "📦";
-    
+
         // Azure DevOps allows a maximum of 4000 characters to be used in a pull request description:
         // https://visualstudio.uservoice.com/forums/330519-azure-devops-formerly-visual-studio-team-services/suggestions/20217283-raise-the-character-limit-for-pull-request-descrip
         private const int MaxCharacterCount = 4000;
@@ -149,6 +149,11 @@ namespace NuKeeper.AzureDevOps
                 if (SourceIsPublicNuget(updates.Selected.Source.SourceUri))
                 {
                     line = $"| {CodeQuote(current.Path.RelativePath)} | {CodeQuote(updates.SelectedId)} | {NuGetVersionPackageLink(current.Identity)} | {NuGetVersionPackageLink(updates.Selected.Identity)} |";
+
+                    if (updates.Selected.ProjectUri != null)
+                    {
+                        line = $"{line} | {NuGetProjectLink(updates.Selected.ProjectUri)}";
+                    }
                     builder.AppendLine(line);
 
                     continue;
@@ -233,6 +238,12 @@ namespace NuKeeper.AzureDevOps
         {
             var url = $"https://www.nuget.org/packages/{package.Id}/{package.Version}";
             return $"[{package.Version}]({url})";
+        }
+
+        private static string NuGetProjectLink(Uri projectUri)
+        {
+            var url = projectUri.ToString();
+            return $"[{url}]({url})";
         }
     }
 }

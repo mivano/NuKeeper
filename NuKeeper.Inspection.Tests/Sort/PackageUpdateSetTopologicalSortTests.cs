@@ -229,7 +229,7 @@ namespace NuKeeper.Inspection.Tests.Sort
             return new PackageSearchMetadata(
                 new PackageIdentity(packageId, new NuGetVersion(version)),
                 new PackageSource(NuGetConstants.V3FeedUrl),
-                DateTimeOffset.Now, upstreams);
+                DateTimeOffset.Now, new Uri("https://www.url.net"), upstreams);
         }
 
     }

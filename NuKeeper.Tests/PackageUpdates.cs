@@ -29,7 +29,7 @@ namespace NuKeeper.Tests
 
             var latest = new PackageSearchMetadata(
                 packageId.SingleVersionIdentity(), OfficialPackageSource(),
-                null,
+                null, new Uri("https://www.url.net"),
                 Enumerable.Empty<PackageDependency>());
 
             var packages = new PackageLookupResult(VersionChange.Major, latest, null, null);
@@ -46,7 +46,7 @@ namespace NuKeeper.Tests
             IEnumerable<PackageInProject> packages,
             IEnumerable<PackageDependency> dependencies)
         {
-            var latest = new PackageSearchMetadata(package, OfficialPackageSource(), published, dependencies);
+            var latest = new PackageSearchMetadata(package, OfficialPackageSource(), published, new Uri("https://www.url.net"), dependencies);
             var updates = new PackageLookupResult(VersionChange.Major, latest, null, null);
             return new PackageUpdateSet(updates, packages);
         }
@@ -65,7 +65,7 @@ namespace NuKeeper.Tests
         public static PackageUpdateSet ForNewVersion(PackageIdentity newPackage, params PackageInProject[] packages)
         {
             var publishedDate = new DateTimeOffset(2018, 2, 19, 11, 12, 7, TimeSpan.Zero);
-            var latest = new PackageSearchMetadata(newPackage, OfficialPackageSource(), publishedDate, null);
+            var latest = new PackageSearchMetadata(newPackage, OfficialPackageSource(), publishedDate, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Major, latest, null, null);
             return new PackageUpdateSet(updates, packages);
@@ -76,7 +76,7 @@ namespace NuKeeper.Tests
             var newPackage = new PackageIdentity("foo.bar", new NuGetVersion("1.2.3"));
             var publishedDate = new DateTimeOffset(2018, 2, 19, 11, 12, 7, TimeSpan.Zero);
             var latest = new PackageSearchMetadata(newPackage,
-                InternalPackageSource(), publishedDate, null);
+                InternalPackageSource(), publishedDate, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Major, latest, null, null);
             return new PackageUpdateSet(updates, packages);
@@ -89,7 +89,7 @@ namespace NuKeeper.Tests
 
         public static PackageUpdateSet UpdateSetFor(PackageIdentity package, DateTimeOffset published, params PackageInProject[] packages)
         {
-            var latest = new PackageSearchMetadata(package, OfficialPackageSource(), published, null);
+            var latest = new PackageSearchMetadata(package, OfficialPackageSource(), published, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Major, latest, null, null);
             return new PackageUpdateSet(updates, packages);
@@ -104,10 +104,10 @@ namespace NuKeeper.Tests
             params PackageInProject[] packages)
         {
             var latestId = new PackageIdentity("foo.bar", new NuGetVersion("2.3.4"));
-            var latest = new PackageSearchMetadata(latestId, OfficialPackageSource(), publishedAt, null);
+            var latest = new PackageSearchMetadata(latestId, OfficialPackageSource(), publishedAt, new Uri("https://www.url.net"), null);
 
             var match = new PackageSearchMetadata(
-                new PackageIdentity("foo.bar", new NuGetVersion("1.2.3")), OfficialPackageSource(), null, null);
+                new PackageIdentity("foo.bar", new NuGetVersion("1.2.3")), OfficialPackageSource(), null, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Minor, latest, match, null);
             return new PackageUpdateSet(updates, packages);
@@ -126,7 +126,7 @@ namespace NuKeeper.Tests
 
             var matchVersion = new NuGetVersion("4.0.0");
             var match = new PackageSearchMetadata(new PackageIdentity("foo", matchVersion),
-                OfficialPackageSource(), pubDate, null);
+                OfficialPackageSource(), pubDate, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Major, match, null, null);
             return new PackageUpdateSet(updates, currentPackages);
@@ -143,7 +143,7 @@ namespace NuKeeper.Tests
             };
 
             var matchId = new PackageIdentity("bar", new NuGetVersion("4.0.0"));
-            var match = new PackageSearchMetadata(matchId, OfficialPackageSource(), pubDate, null);
+            var match = new PackageSearchMetadata(matchId, OfficialPackageSource(), pubDate, new Uri("https://www.url.net"), null);
 
             var updates = new PackageLookupResult(VersionChange.Major, match, null, null);
             return new PackageUpdateSet(updates, currentPackages);

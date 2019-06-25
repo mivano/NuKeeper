@@ -204,7 +204,7 @@ namespace NuKeeper.Tests.Engine
         {
             var version = new NuGetVersion(major, minor, patch);
             var packageId = new PackageIdentity("foo", version);
-            return new PackageSearchMetadata(packageId, PackageUpdates.OfficialPackageSource(), DateTimeOffset.Now, null);
+            return new PackageSearchMetadata(packageId, PackageUpdates.OfficialPackageSource(), DateTimeOffset.Now, new Uri("https://www.url.net"), null);
         }
     }
 }
